@@ -1,9 +1,8 @@
 # Time : 2023/2/10 11:20
-
 import requests
 
+from common.requests_util import RequestsUtil
 from common.yaml_util import write_yaml, read_yaml
-
 
 class GetAuthorization:
 
@@ -17,7 +16,8 @@ class GetAuthorization:
             'username' : 'amos.chi',
             'password' : 'a123456'
         }
-        resp = requests.post(url=url, json=data, proxies=GetAuthorization.proxies)
+        #resp = requests.post(url=url, json=data, proxies=GetAuthorization.proxies)
+        resp = RequestsUtil().request(method='post',url=url, json=data, proxies=GetAuthorization.proxies)
         token = resp.json()['credential']['access_token']
         Authorization = 'Bearer ' + token
         write_yaml({'Authorization': Authorization})

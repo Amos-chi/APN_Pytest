@@ -1,6 +1,6 @@
 import pytest
-import requests
 
+from common.requests_util import RequestsUtil
 from common.yaml_util import read_yaml, read_yamlfile
 
 proxies = {
@@ -19,8 +19,8 @@ class TestCompany_clientlist():
         json = param['requests']['data']
         headers = {'Authorization': read_yaml('Authorization')}
         method = param['requests']['method']
-        resp = requests.request(method=method, url=url, json=json, headers=headers, proxies=proxies)
-
+        resp = RequestsUtil().request(method=method, url=url, json=json, headers=headers, proxies=proxies)
+        print(param['validate'])
 
 
 

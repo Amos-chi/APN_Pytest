@@ -14,10 +14,10 @@
       industry: null
       countries: null
   extract:
-    code: [status_code,(.*),0]
+    status_code: status_code
 
   validate:
-    eq: {$code: 200}
+    eq: {$status_code: 200}
 -
   feature: company
   story: client列表查询
@@ -34,7 +34,8 @@
       industry: null
       countries: null
   extract:
-    code: [status_code,(.*),0]
+    #code: [status_code,(.*),0]
+    status_code: status_code
 
   validate:
-    eq: {$code: 400}
+    eq: {$status_code: 400}
