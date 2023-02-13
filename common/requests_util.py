@@ -9,5 +9,11 @@ class RequestsUtil():
 
     def request(self,method,url,**kwargs):
         method = str(method).lower()
-        resp = requests.request(method=method,url=url, **kwargs)
+        while True:
+            try:
+                resp = requests.request(method=method,url=url, **kwargs)
+                break
+            except Exception as e :
+                print(e)
+
         return resp
