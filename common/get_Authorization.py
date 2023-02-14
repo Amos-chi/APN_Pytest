@@ -1,8 +1,10 @@
 # Time : 2023/2/10 11:20
 import requests
 
+import common.requests_util
+from common.yaml_util import set_Auth, get_Auth
 from common.requests_util import RequestsUtil
-from common.yaml_util import write_yaml, read_yaml
+
 
 class GetAuthorization:
 
@@ -17,12 +19,12 @@ class GetAuthorization:
             'password' : 'a123456'
         }
         #resp = requests.post(url=url, json=data, proxies=GetAuthorization.proxies)
-        resp = RequestsUtil().request(method='post',url=url, json=data, proxies=GetAuthorization.proxies)
+        resp = RequestsUtil().request(method='post', url=url, json=data, proxies=GetAuthorization.proxies)
         token = resp.json()['credential']['access_token']
         Authorization = 'Bearer ' + token
-        write_yaml({'Authorization': Authorization})
+        set_Auth({'Authorization': Authorization})
         print('{:-^50}'.format('运行了get_Authorization'))
 
 if __name__ == '__main__':
     GetAuthorization().get_Authorization()
-    print(read_yaml('Authorization'))
+    print(get_Auth('Authorization'))
