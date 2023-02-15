@@ -117,5 +117,5 @@ def pre():
     bget_encoding()
     cFromCsvToJson(csv_path=f'csvdata/company/{i}')
     dEnvReplaceYaml(yaml_file=f'testcases/Companies/format/{ff}',
-                    new_yaml_file=f'hotdata/company/{ff}.yaml')
+                    new_yaml_file=f'hotdata/company/{i[:-4]}_nyf.yaml')
 
