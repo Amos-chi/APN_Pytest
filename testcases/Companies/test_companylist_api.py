@@ -11,7 +11,7 @@ proxies = {
 
 class TestCompany_clientlist():
 
-    data_dict = read_yamlfile('\\hotdata\\company\\company_list_new.yaml')
+    data_dict = read_yamlfile('\\hotdata\\company\\company_list_nyf.yaml')
 
     @pytest.mark.company
     @pytest.mark.parametrize('param',data_dict)

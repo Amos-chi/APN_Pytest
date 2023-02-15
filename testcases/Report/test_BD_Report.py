@@ -12,7 +12,7 @@ proxies = {
 class TestCompany_clientlist():
     pass
     # @pytest.mark.company
-    # @pytest.mark.parametrize('param',read_yamlfile('\\hotdata\\new_yaml_files\\company_list_new.yaml'))
+    # @pytest.mark.parametrize('param',read_yamlfile('\\hotdata\\new_yaml_files\\company_list_nyf.yaml'))
     # def test_clientlist(self,param):
     #     print(param['feature']+ '.' +param['story']+ '.' +param['title'])
     #     url = param['requests']['url']

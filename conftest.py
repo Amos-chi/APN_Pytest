@@ -64,5 +64,5 @@ def asco_session():
     #sco_session()
     #get_encoding()
     #FromCsvToJson(csv_path='csvdata/company_list.csv')
-    #EnvReplaceYaml(yaml_file='csvdata/company_list.csv', new_yaml_file='hotdata/new_yaml_files/company_list_new.yaml')
+    #EnvReplaceYaml(yaml_file='csvdata/company_list.csv', new_yaml_file='hotdata/new_yaml_files/company_list_nyf.yaml')
 
