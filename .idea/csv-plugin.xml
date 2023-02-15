@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\csvdata\Reports\bd_report.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\csvdata\company_moddle.csv">
           <value>
             <Attribute>

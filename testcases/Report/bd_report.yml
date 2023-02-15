@@ -1,0 +1,20 @@
+-
+  feature: $csv{feature}
+  story: $csv{story}
+  title: $csv{title}
+
+  requests:
+    method: $csv{method}
+    url: $csv{url}
+    data:
+      companyName: $csv{companyName}
+      accountManagers: $csv{accountManagers}
+      companyClientLevelType: $csv{level}
+      serviceTypes: $csv{serviceTypeNums}
+      active: $csv{isactive}
+      industry: $csv{industry}
+      countries: $csv{country}
+  extract:
+    status_code: status_code
+
+  validate: $csv{validates}
