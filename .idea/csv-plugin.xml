@@ -24,7 +24,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\csvdata\company_moddle.csv">
+        <entry key="\csvdata\reports\bd_report.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
