@@ -1,8 +1,4 @@
-import pytest
-from pytest_assume.plugin import assume
-from common.requests_util import RequestsUtil
-from common.yaml_util import read_yamlfile, get_Auth
-import json
+
 proxies = {
         'http': 'http://127.0.0.1:4780',
         'https': 'http://127.0.0.1:4780'

@@ -1,7 +1,5 @@
 # Time : 2023/2/10 11:20
-import requests
 
-import common.requests_util
 from common.yaml_util import set_Auth, get_Auth
 from common.requests_util import RequestsUtil
 
