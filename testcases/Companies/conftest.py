@@ -10,12 +10,15 @@ from contextlib import ExitStack
 
 import pytest
 
+from common.yaml_util import read_yamlfile
 
-@pytest.fixture(scope='package', autouse=True)
+
+#@pytest.fixture(scope='package', autouse=True)
 def pre():
     #print('00000')
     dir = r'csvdata/company'
     files = os.listdir(dir)
+    data_dict_dict = {}
     for i in files:
         if i.endswith('.csv'):
             #@pytest.fixture(scope='package',autouse=True)
@@ -114,8 +117,12 @@ def pre():
                     print("Error: " + format(str(e)))
                     raise
 
-    bget_encoding()
-    cFromCsvToJson(csv_path=f'csvdata/company/{i}')
-    dEnvReplaceYaml(yaml_file=f'testcases/Companies/format/{ff}',
-                    new_yaml_file=f'hotdata/company/{i[:-4]}_nyf.yaml')
+        bget_encoding()
+        cFromCsvToJson(csv_path=f'csvdata/company/{i}')
+        dEnvReplaceYaml(yaml_file=f'testcases/Companies/format/{ff}',
+                        new_yaml_file=f'hotdata/company/{i[:-4]}_nyf.yaml')
 
+
+        data_dict_dict[i[:-4]] = read_yamlfile(f'\\hotdata\\company\\{i[:-4]}_nyf.yaml')
+
+    return data_dict_dict

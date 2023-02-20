@@ -1,6 +1,8 @@
 import pytest
 from common.requests_util import RequestsUtil
 from common.yaml_util import read_yamlfile, get_Auth
+from testcases.Companies.conftest import pre
+
 proxies = {
         'http': 'http://127.0.0.1:4780',
         'https': 'http://127.0.0.1:4780'
@@ -9,11 +11,11 @@ proxies = {
 
 class TestCompany_clientlist():
 
-    data_dict = read_yamlfile('\\hotdata\\company\\company_list_nyf.yaml')
 
     @pytest.mark.company
-    @pytest.mark.parametrize('param',data_dict)
+    @pytest.mark.parametrize('param',pre()['company_list'])
     def test_clientlist(self,param):
+        # 显示测试模块 - 用例 - 测试项
         print(param['feature']+ '.' +param['story']+ '.' +param['title'])
         url = param['requests']['url']
         data = param['requests']['data']
