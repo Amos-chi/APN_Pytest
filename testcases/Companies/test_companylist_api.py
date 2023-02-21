@@ -3,6 +3,7 @@ import json
 import pytest
 
 from common.assert_util import get_extract, assert_
+from common.logger_util import pylogger
 from common.requests_util import RequestsUtil
 from common.yaml_util import read_yamlfile, get_Auth
 from testcases.Companies.conftest import pre
@@ -20,18 +21,18 @@ class TestCompany_clientlist():
     @pytest.mark.parametrize('param',pre()['company_list'])
     def test_clientlist(self,param):
         # 显示测试模块 - 用例 - 测试项
-        print(f"{param['feature']}. {param['story']}. {param['title']}")
+        pylogger.alogger.info(f" ---> 测试用例: {param['feature']}. {param['story']}. {param['title']}")
         url = param['requests']['url']
         data = param['requests']['data']
         headers = {'Authorization': get_Auth('Authorization')}
         method = param['requests']['method']
         resp = RequestsUtil().request(method=method, url=url, json=data, headers=headers, proxies=proxies)
         if resp.status_code == 200:
-            print(f'{len(resp.json())} results: ')
+            pylogger.alogger.info(f'{len(resp.json())} results: ')
             #print(f'resp.json: {json.dumps(resp.json(),indent=4)}')
             n = 1
             for i in resp.json():
-                print(f'第 {n} 个结果: ')
+                pylogger.alogger.info(f'第 {n} 个结果: ')
                 # 对每个公司, 获取要断言的字段 , 返回一个字典
                 res_dict = get_extract(i, param)
                 #print(res_dict)

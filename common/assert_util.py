@@ -3,6 +3,7 @@ import re
 
 from jsonpath import jsonpath
 
+from common.logger_util import pylogger
 from common.yaml_util import read_yamlfile
 
 proxies = {
@@ -31,7 +32,7 @@ def get_extract(respjson, json_):
         #bool
         else:
             res_dict[ext_key] = str(result[0])
-
+    pylogger.alogger.info(f'extract 提取到的字典{res_dict}')
     return res_dict
 
 def assert_(res_dict,json_):
@@ -44,8 +45,8 @@ def assert_(res_dict,json_):
            if method in ['eq', 'equal', 'equals']:
                for assKey, assValue in ass_dic.items():
                    if assValue:
-                       print('this is equal assert ::')
-                       print(f'"{str(assValue).lower()}" == "{str(res_dict[assKey]).lower()}"')
+                       pylogger.alogger.info('this is equal assert ::')
+                       pylogger.alogger.info(f'{assKey}:  "{str(assValue).lower()}" == "{str(res_dict[assKey]).lower()}"')
                        assert str(assValue).lower() == str(res_dict[assKey]).lower()
                    else:
                        pass
@@ -54,19 +55,19 @@ def assert_(res_dict,json_):
            elif method in ['ct','contain']:
                for assKey, assValue in ass_dic.items():
                    if assValue :
-                       print('this is contain assert ::')
+                       pylogger.alogger.info('this is contain assert ::')
                        # 如果传参不是字符串, 就通过正则 提取想要的字段 拼接成字符串
                        if type(assValue) != str:
                            #print(f'asskey, assValue: {assKey}, {assValue}')
                            re_result = regex_str.findall(str(assValue))
-                           print(f're_result: {re_result}  -------------------------')
+                           #print(f're_result: {re_result}  -------------------------')
                            for r in re_result:
                                assValue = r
-                               print(f' "{assValue.lower()}" in "{res_dict[assKey]}"')
+                               pylogger.alogger.info(f'{assKey}: "{assValue.lower()}" in "{res_dict[assKey]}"')
                                assert assValue.lower() in res_dict[assKey]
                        else:
                            # 把实际的值带入断言规则 打印
-                           print(f'"{assValue.lower()}" in "{res_dict[assKey]}"')
+                           pylogger.alogger.info(f'{assKey}: "{assValue.lower()}" in "{res_dict[assKey]}"')
                            assert assValue.lower() in res_dict[assKey]
                    else:
                        pass
@@ -75,12 +76,15 @@ def assert_(res_dict,json_):
            elif method in ['orgt']:
                for assKey, assValue in ass_dic.items():
                    if assValue:
-                       print('this is or_contain assert ::')
+                       pylogger.alogger.info('this is or_contain assert ::')
                        # 如果传参不是字符串, 就通过正则 提取想要的字段 拼接成字符串
                        if type(assValue) is list:
                            # print(f'asskey, assValue: {assKey}, {assValue}')
                            re_result = regex_str.findall(str(assValue))
-                           print(f're_result: {re_result}  -------------------------')
+                           #pylogger.alogger.info(f're_result: {re_result} ')
+
+                           pylogger.alogger.info(f'{assKey}:  some of {re_result} in "{res_dict[assKey]}"')
+
                            is_orgt = 0
                            for r in re_result:
                                assValue = r
@@ -88,7 +92,7 @@ def assert_(res_dict,json_):
                                for o in res_dict[assKey]:
                                    if type(o) is not str:
                                        res_dict[assKey].append(str(o))
-                               print(f' some of {re_result} in "{res_dict[assKey]}"')
+
                                if assValue.lower() in res_dict[assKey]:
                                   is_orgt = 1
                            assert is_orgt == 1
