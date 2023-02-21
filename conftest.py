@@ -3,6 +3,7 @@
 import pytest
 import chardet
 from common.get_Authorization import GetAuthorization
+from common.logger_util import pylogger
 from common.yaml_util import clean_Auth
 
 # yaml_file为YAML模板文件
@@ -11,11 +12,12 @@ from common.yaml_util import clean_Auth
 
 @pytest.fixture(scope='session', autouse=True)
 def asco_session():
-    print('{:-^50}'.format('这里运行了session级别夹具'))
+    #pylogger.alogger.info('{:-^50}'.format('这里运行了session级别夹具'))
+    pylogger.alogger.info('开始测试')
     clean_Auth()
     GetAuthorization().get_Authorization()
     yield
-    print('{:-^50}'.format('所有用例测试结束'))
+    pylogger.alogger.info('{:-^50}'.format('所有用例测试结束'))
 
 
 

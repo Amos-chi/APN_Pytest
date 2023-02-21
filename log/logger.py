@@ -1,13 +1,20 @@
 """
 LOG_FileHandler is to write all logs into LOG_FILENAME
 """
+import datetime
 import os
 import logging
 import sys
 import time
 
+
+date_ = datetime.datetime.now().strftime('%Y-%m-%d')
+date_dir = 'log' + '/' + date_
+if not os.path.exists(date_dir):
+    os.makedirs(date_dir)
+
 TIME_FORMAT = "%Y-%m-%dT%XZ%Z"  # year_month_day_time_weekdayinnumber_timezone
-LOG_FILENAME = "log/" + ("dbg_" if __debug__ else "log_") + \
+LOG_FILENAME = f"{date_dir}/" + ("dbg_" if __debug__ else "log_") + \
                time.strftime(TIME_FORMAT).replace(":", "：") + ".log"  # colon (:) cannot use in windows
 
 

@@ -10,8 +10,12 @@ from contextlib import ExitStack
 
 import pytest
 
+from common.logger_util import pylogger
 from common.yaml_util import read_yamlfile
 
+@pytest.fixture(scope='package', autouse=True)
+def set_log():
+    pylogger.alogger.info('{:-^50}'.format('开始测试company模块'))
 
 #@pytest.fixture(scope='package', autouse=True)
 def pre():
