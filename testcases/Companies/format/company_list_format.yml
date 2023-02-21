@@ -14,7 +14,28 @@
       active: $csv{isactive}
       industry: $csv{industry}
       countries: $csv{country}
-  extract:
-    status_code: status_code
 
-  validate: $csv{validates}
+  extract:
+    companyName: $.name
+    accountManagers : $.accountManager..fullName
+    companyClientLevelType: $.companyClientLevelType
+    serviceTypes: $.companyServiceTypes..id
+    active: $.active
+    industry: $.industry
+    countries: $.country
+
+  validate:
+    - ct:
+        companyName: $csv{companyName}
+    - ct:
+        accountManagers: $csv{accountManagers}
+    - eq:
+        companyClientLevelType: $csv{level}
+    - orgt:
+        serviceTypes: $csv{serviceTypeNums}
+    - eq:
+        active: $csv{isactive}
+    - ct:
+        industry: $csv{industry}
+    - ct:
+        countries: $csv{country}

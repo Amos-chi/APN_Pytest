@@ -6,6 +6,8 @@ import yaml
 
 # def get_obj_path():
 #     return os.path.dirname(__file__).split('common')[0]         # 获取当前文件的路径
+from jsonpath import jsonpath
+
 
 def read_yamlfile(yamldir):
     basedir = 'E:\Program Files (x86)\PyCharm\Amos-chi\APN_Pytest'
@@ -26,7 +28,6 @@ def clean_Auth():
     with open('E:\Program Files (x86)\PyCharm\Amos-chi\APN_Pytest\Authorization.yaml','w',encoding='utf-8') as f:
         f.truncate()
 
+
 if __name__ == '__main__':
-    set_Auth({'name': 'test'})
-    print(get_Auth('name'))
-    clean_Auth()
+    pass
