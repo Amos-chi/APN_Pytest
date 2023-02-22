@@ -5,7 +5,7 @@
 
   requests:
     method: post
-    url: https://api-staging.hitalentech.com:8888/company/api/v3/company/clients/search?mine=false&page=0&size=25
+    url: https://api-staging.hitalentech.com:8888/company/api/v3/company/clients/search
     data:
       companyName: google
       accountManagers: [{fullName: Lila Wong}]
@@ -14,6 +14,10 @@
       active: true
       industry: IT_SOFTWARE
       countries: [United States]
+    params:
+      mine: 
+      page: 0
+      size: 25
 
   extract:
     companyName: $.name
@@ -31,7 +35,7 @@
         accountManagers: [{fullName: Lila Wong}]
     - eq:
         companyClientLevelType: KEY_ACCOUNT
-    - orgt:
+    - orct:
         serviceTypes: [{id: 5}, {id: 6}, {id: 7}, {id: 8}, {id: 9}, {id: 10}, {id: 17}]
     - eq:
         active: true
@@ -43,11 +47,11 @@
 -
   feature: company
   story: client列表查询
-  title: 66666
+  title: 22222
 
   requests:
     method: post
-    url: https://api-staging.hitalentech.com:8888/company/api/v3/company/clients/search?mine=false&page=0&size=25
+    url: https://api-staging.hitalentech.com:8888/company/api/v3/company/clients/search
     data:
       companyName: google
       accountManagers: [{fullName: Lila Wong}]
@@ -56,6 +60,10 @@
       active: true
       industry: IT_SOFTWARE
       countries: 
+    params:
+      mine: 
+      page: 0
+      size: 25
 
   extract:
     companyName: $.name
@@ -73,7 +81,7 @@
         accountManagers: [{fullName: Lila Wong}]
     - eq:
         companyClientLevelType: KEY_ACCOUNT
-    - orgt:
+    - orct:
         serviceTypes: [{id: 5}, {id: 6}, {id: 7}, {id: 8}, {id: 9}, {id: 10}, {id: 17}]
     - eq:
         active: true
@@ -85,19 +93,23 @@
 -
   feature: company
   story: client列表查询
-  title: 88888
+  title: 33333
 
   requests:
     method: post
-    url: https://api-staging.hitalentech.com:8888/company/api/v3/company/clients/search?mine=false&page=0&size=25
+    url: https://api-staging.hitalentech.com:8888/company/api/v3/company/clients/search
     data:
-      companyName: google
+      companyName: 
       accountManagers: 
       companyClientLevelType: 
       serviceTypes: 
       active: 
       industry: 
       countries: 
+    params:
+      mine: True
+      page: 0
+      size: 25
 
   extract:
     companyName: $.name
@@ -110,12 +122,58 @@
 
   validate:
     - ct:
-        companyName: google
+        companyName: 
     - ct:
         accountManagers: 
     - eq:
         companyClientLevelType: 
-    - orgt:
+    - orct:
+        serviceTypes: 
+    - eq:
+        active: 
+    - ct:
+        industry: 
+    - ct:
+        countries: 
+
+-
+  feature: company
+  story: client列表查询
+  title: 44444
+
+  requests:
+    method: post
+    url: https://api-staging.hitalentech.com:8888/company/api/v3/company/clients/search
+    data:
+      companyName: 
+      accountManagers: 
+      companyClientLevelType: 
+      serviceTypes: 
+      active: 
+      industry: 
+      countries: 
+    params:
+      mine: 
+      page: 0
+      size: 25
+
+  extract:
+    companyName: $.name
+    accountManagers : $.accountManager..fullName
+    companyClientLevelType: $.companyClientLevelType
+    serviceTypes: $.companyServiceTypes..id
+    active: $.active
+    industry: $.industry
+    countries: $.country
+
+  validate:
+    - ct:
+        companyName: 
+    - ct:
+        accountManagers: 
+    - eq:
+        companyClientLevelType: 
+    - orct:
         serviceTypes: 
     - eq:
         active: 

@@ -11,4 +11,4 @@ if __name__ == '__main__':
 
     pytest.main()
     # time.sleep(3)
-    # os.system('allure generate ./temps -o reports --clean') # -o output到reports目录
+    # os.system('allure generate ./temps -o Allure_reports --clean') # -o output到reports目录

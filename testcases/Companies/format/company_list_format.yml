@@ -14,6 +14,10 @@
       active: $csv{isactive}
       industry: $csv{industry}
       countries: $csv{country}
+    params:
+      mine: $csv{mine}
+      page: 0
+      size: 25
 
   extract:
     companyName: $.name
@@ -31,7 +35,7 @@
         accountManagers: $csv{accountManagers}
     - eq:
         companyClientLevelType: $csv{level}
-    - orgt:
+    - orct:
         serviceTypes: $csv{serviceTypeNums}
     - eq:
         active: $csv{isactive}
