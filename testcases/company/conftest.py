@@ -13,14 +13,7 @@ import pytest
 from common.logger_util import pylogger
 from common.yaml_util import read_yamlfile
 
-'''
-1.需要准备 csvdata/{module}/{xxx}.csv 文件, 注意命名规范
-2.需要准备 format/{xxx}_format.yml 文件, 注意命名规范
-3.需要准备 hotdata/{module} 文件夹
-xxx命名没有要求, 取值的时候 @pytest.mark.parametrize('param',pre()['{xxx}'])
-'''
-
-module = 'company'
+module = 'talent'
 
 @pytest.fixture(scope='package', autouse=True)
 def set_log():
@@ -28,13 +21,11 @@ def set_log():
 
 #@pytest.fixture(scope='package', autouse=True)
 def pre():
-    #print('00000')
     dir = fr'csvdata/{module}'
     files = os.listdir(dir)
     data_dict_dict = {}
     for i in files:
         if i.endswith('.csv'):
-            #@pytest.fixture(scope='package',autouse=True)
             def bget_encoding():
                 #print('2222')
                 file = f'{dir}/{i}'
@@ -62,11 +53,7 @@ def pre():
 
             profileList = []
             # 从csv中读取用例参数, 以字典的列表形式 存放到 profileList , 一个字典就是一个用例
-            #@pytest.fixture(scope='package',autouse=True)
             def cFromCsvToJson(csv_path):
-            #def cFromCsvToJson(csv_path=f'csvdata/company/{i}'):
-                #print('3333')
-                #print('读取csv')
                 with open(csv_path, 'r', encoding='utf-8') as csv_file:
                     reader = csv.DictReader(csv_file)
                     for row in reader:
@@ -75,7 +62,6 @@ def pre():
                             if not data[key]:
                                 data[key] = '"Null"'
                         profileList.append(data)
-                    #print(profileList)
                     return profileList
 
             # 从 profileList 中 读取参数, 按照yaml模板 写入新的yaml中
@@ -85,25 +71,22 @@ def pre():
             for f in format_files:
                 if f[:-11] == i[:-4]:
                     ff = f
-            #@pytest.fixture(scope='package',autouse=True)
+
             def dEnvReplaceYaml(yaml_file, new_yaml_file):
-            #def dEnvReplaceYaml(yaml_file=f'testcases/company/format/{ff}',
-                                  #new_yaml_file=f'hotdata/company/{ff}.yaml'):
-                #print('4444')
-
-
                 prama_str = re.compile('.*?: (\$csv\{(.*?)\})')
 
                 try:
                     with ExitStack() as stack:
-                        yml_file = stack.enter_context(open(yaml_file, 'r+', encoding='utf-8'))
-                        yf = open(new_yaml_file, 'w', encoding='utf-8')
-                        yml_output = stack.enter_context(yf)
+                        try:
+                            yml_file = stack.enter_context(open(yaml_file, 'r+', encoding='utf-8'))
+                            yf = open(new_yaml_file, 'w', encoding='utf-8')
+                            yml_output = stack.enter_context(yf)
+                        except PermissionError as e:
+                            print(e)
+                            print('可能缺少对应format yaml文件')
                         # 先读取YAML模板文件，返回值为字符串列表
                         yml_file_lines = yml_file.readlines()
                         # profileList的长度即为测试用例的数量
-                        #print('处理csv')
-                        # print('处理csv')
                         for i in range(0, len(profileList)):
                             # 循环遍历列表
                             for line in yml_file_lines:
@@ -112,7 +95,6 @@ def pre():
                                 if r1 := prama_str.search(new_line):
                                     # 取出变量名称，比如“name”
                                     env_name = r1.group(2)
-                                    #print('env_name: ' + env_name)
                                     replacement = ""
                                     # 如果name在字典列表的key里
                                     if env_name in profileList[i].keys():
