@@ -63,5 +63,8 @@ class RequestsUtil():
                 assert_(res_dict, param)
         else:
             assert resp.status_code == 200
+
+
+
 if __name__ == '__main__':
     RequestsUtil().request('qweq','sadasdasd')

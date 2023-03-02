@@ -2,11 +2,10 @@ import json
 
 import pytest
 
-from common.assert_util import get_extract, assert_
 from common.logger_util import pylogger
 from common.requests_util import RequestsUtil
 from common.yaml_util import read_yamlfile, get_Auth
-from testcases.company.conftest import pre
+from testcases.company.conftest import prepare
 
 proxies = {
         'http': 'http://127.0.0.1:4780',
@@ -22,7 +21,8 @@ class TestCompany():
         获取company列表
     '''
     @pytest.mark.company
-    @pytest.mark.parametrize('param',pre()['company_list'])
+    @pytest.mark.test
+    @pytest.mark.parametrize('param',prepare()['company_list'])
     def test_clientlist(self,param):
         RequestsUtil().normal_apis(param)
 

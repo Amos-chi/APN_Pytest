@@ -7,4 +7,4 @@ proxies = {
 }
 class pylogger():
 
-    alogger = logger.get_logger(debug_level='INFO',to_file=False)
+    alogger = logger.get_logger(debug_level='INFO',to_file=True)
