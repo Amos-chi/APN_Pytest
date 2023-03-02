@@ -65,6 +65,6 @@ def asco_session():
 #def orders():
     #sco_session()
     #get_encoding()
-    #FromCsvToJson(csv_path='csvdata/company_list.csv')
-    #EnvReplaceYaml(yaml_file='csvdata/company_list.csv', new_yaml_file='hotdata/new_yaml_files/company_list_nyf.yaml')
+    #FromCsvToJson(csv_path='csvdata/talnet_moduleTest.csv')
+    #EnvReplaceYaml(yaml_file='csvdata/talnet_moduleTest.csv', new_yaml_file='hotdata/new_yaml_files/company_list_nyf.yaml')
 

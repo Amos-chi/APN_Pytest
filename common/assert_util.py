@@ -36,7 +36,7 @@ def get_extract(respjson, json_):
                 res_dict[ext_key] = str(result[0])
 
         except Exception as e:
-            print(f'{e} :: 该公司缺少{ext_key}信息(旧数据)')
+            pylogger.alogger.info(f'{e} :: 未从resp中提取到{ext_key}信息')
             pass
 
     pylogger.alogger.info(f'extract 提取到的字典{res_dict}')

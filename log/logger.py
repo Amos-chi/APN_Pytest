@@ -10,8 +10,7 @@ import time
 
 date_ = datetime.datetime.now().strftime('%Y-%m-%d')
 date_dir = 'log' + '/' + date_
-if not os.path.exists(date_dir):
-    os.makedirs(date_dir)
+
 
 TIME_FORMAT = "%Y-%m-%dT%XZ%Z"  # year_month_day_time_weekdayinnumber_timezone
 LOG_FILENAME = f"{date_dir}/" + ("dbg_" if __debug__ else "log_") + \
@@ -58,6 +57,8 @@ class Logger:
         formatter = logging.Formatter(self._format)
         # setup log file
         if to_file:
+            if not os.path.exists(date_dir):
+                os.makedirs(date_dir)
             log_file_handler = logging.FileHandler(filename=self._file_name, mode='a', encoding='utf-8', delay=True)
             log_file_handler.setLevel(level=lev)
             log_file_handler.setFormatter(formatter)

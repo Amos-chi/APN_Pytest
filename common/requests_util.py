@@ -8,8 +8,10 @@ proxies = {
 }
 class RequestsUtil():
 
+
     def request(self,method,url,**kwargs):
         method = str(method).lower()
+        i = 0
         while True:
             try:
                 resp = requests.request(method=method,url=url, **kwargs)
@@ -17,5 +19,12 @@ class RequestsUtil():
                 break
             except Exception as e :
                 print(e)
+                i += 1
+            finally:
+                if i == 5:
+                    break
 
         return resp
+
+if __name__ == '__main__':
+    RequestsUtil().request('qweq','sadasdasd')

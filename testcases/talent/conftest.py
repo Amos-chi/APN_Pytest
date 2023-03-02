@@ -13,22 +13,22 @@ import pytest
 from common.logger_util import pylogger
 from common.yaml_util import read_yamlfile
 
+module = 'talent'
+
 @pytest.fixture(scope='package', autouse=True)
 def set_log():
-    pylogger.alogger.info('{:-^50}'.format('开始测试company模块'))
+    pylogger.alogger.info('{:-^50}'.format(f' 开始测试 {module} 模块 '))
 
 #@pytest.fixture(scope='package', autouse=True)
 def pre():
-    #print('00000')
-    dir = r'csvdata/company'
+    dir = fr'csvdata/{module}'
     files = os.listdir(dir)
     data_dict_dict = {}
     for i in files:
         if i.endswith('.csv'):
-            #@pytest.fixture(scope='package',autouse=True)
             def bget_encoding():
                 #print('2222')
-                file = f'csvdata/company/{i}'
+                file = f'{dir}/{i}'
                 # 二进制方式读取，获取字节数据，检测类型
                 with open(file, 'rb') as f:
                     enc = chardet.detect(f.read())['encoding']
@@ -53,11 +53,7 @@ def pre():
 
             profileList = []
             # 从csv中读取用例参数, 以字典的列表形式 存放到 profileList , 一个字典就是一个用例
-            #@pytest.fixture(scope='package',autouse=True)
             def cFromCsvToJson(csv_path):
-            #def cFromCsvToJson(csv_path=f'csvdata/company/{i}'):
-                #print('3333')
-                #print('读取csv')
                 with open(csv_path, 'r', encoding='utf-8') as csv_file:
                     reader = csv.DictReader(csv_file)
                     for row in reader:
@@ -66,35 +62,31 @@ def pre():
                             if not data[key]:
                                 data[key] = '"Null"'
                         profileList.append(data)
-                    #print(profileList)
                     return profileList
 
             # 从 profileList 中 读取参数, 按照yaml模板 写入新的yaml中
-            format_dir = r'testcases/Companies/format'
+            format_dir = fr'testcases/{module}/format'
             format_files = os.listdir(format_dir)
             ff = ''
             for f in format_files:
                 if f[:-11] == i[:-4]:
                     ff = f
-            #@pytest.fixture(scope='package',autouse=True)
+
             def dEnvReplaceYaml(yaml_file, new_yaml_file):
-            #def dEnvReplaceYaml(yaml_file=f'testcases/Companies/format/{ff}',
-                                  #new_yaml_file=f'hotdata/company/{ff}.yaml'):
-                #print('4444')
-
-
                 prama_str = re.compile('.*?: (\$csv\{(.*?)\})')
 
                 try:
                     with ExitStack() as stack:
-                        yml_file = stack.enter_context(open(yaml_file, 'r+', encoding='utf-8'))
-                        yf = open(new_yaml_file, 'w', encoding='utf-8')
-                        yml_output = stack.enter_context(yf)
+                        try:
+                            yml_file = stack.enter_context(open(yaml_file, 'r+', encoding='utf-8'))
+                            yf = open(new_yaml_file, 'w', encoding='utf-8')
+                            yml_output = stack.enter_context(yf)
+                        except PermissionError as e:
+                            print(e)
+                            print('可能缺少对应format yaml文件')
                         # 先读取YAML模板文件，返回值为字符串列表
                         yml_file_lines = yml_file.readlines()
                         # profileList的长度即为测试用例的数量
-                        #print('处理csv')
-                        # print('处理csv')
                         for i in range(0, len(profileList)):
                             # 循环遍历列表
                             for line in yml_file_lines:
@@ -103,7 +95,6 @@ def pre():
                                 if r1 := prama_str.search(new_line):
                                     # 取出变量名称，比如“name”
                                     env_name = r1.group(2)
-                                    #print('env_name: ' + env_name)
                                     replacement = ""
                                     # 如果name在字典列表的key里
                                     if env_name in profileList[i].keys():
@@ -122,11 +113,11 @@ def pre():
                     raise
 
         bget_encoding()
-        cFromCsvToJson(csv_path=f'csvdata/company/{i}')
-        dEnvReplaceYaml(yaml_file=f'testcases/Companies/format/{ff}',
-                        new_yaml_file=f'hotdata/company/{i[:-4]}_nyf.yaml')
+        cFromCsvToJson(csv_path=f'csvdata/{module}/{i}')
+        dEnvReplaceYaml(yaml_file=f'testcases/{module}/format/{ff}',
+                        new_yaml_file=f'hotdata/{module}/{i[:-4]}_nyf.yaml')
 
 
-        data_dict_dict[i[:-4]] = read_yamlfile(f'\\hotdata\\company\\{i[:-4]}_nyf.yaml')
+        data_dict_dict[i[:-4]] = read_yamlfile(f'\\hotdata\\{module}\\{i[:-4]}_nyf.yaml')
 
     return data_dict_dict

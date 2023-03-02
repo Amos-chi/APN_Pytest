@@ -1,0 +1,38 @@
+-
+  feature: $csv{feature}
+  story: $csv{story}
+  title: $csv{title}
+
+  requests:
+    method: $csv{method}
+    url: $csv{url}
+    data:
+      firstName: $csv{firstName}
+      lastName: $csv{lastName}
+      contacts: $csv{contacts}
+      creationTalentType: $csv{creationTalentType}
+      currency: $csv{currency}
+      currentLocation: $csv{currentLocation}
+      industries: $csv{industries}
+      jobFunctions: $csv{jobFunctions}
+      languages: $csv{languages}
+      sourcingChannel: $csv{sourcingChannel}
+      additionalInfoId: $csv{additionalInfoId}
+      addressLine1: $csv{addressLine1}
+      addressLine2: $csv{addressLine2}
+      educations: $csv{educations}
+      experiences: $csv{experiences}
+      photoUrl: $csv{photoUrl}
+      projects: $csv{projects}
+      resumes: $csv{resumes}
+      skills: $csv{skills}
+      workAuthorization: $csv{workAuthorization}
+      zipCode: $csv{zipCode}
+
+
+  extract:
+    firstName: $.firstName
+
+  validate:
+    - eq:
+        firstName: $csv{firstName}
