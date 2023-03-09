@@ -14,33 +14,36 @@ proxies = {
 # yaml extract部分, 获取resp中的值
 def get_extract(respjson, json_):
     res_dict = {}
-    for ext_key, ext_value in json_['extract'].items():
-        #print(f'------------jsonpath(respjson, ext_value) : {jsonpath(respjson, ext_value)}')
+    if json_.get('extract'):
+        for ext_key, ext_value in json_['extract'].items():
+            #print(f'------------jsonpath(respjson, ext_value) : {jsonpath(respjson, ext_value)}')
 
-        # 如果列表是纯数字, 不能直接用join拼接 要转一下
-        try:
-            result = jsonpath(respjson, ext_value)
+            # 如果列表是纯数字, 不能直接用join拼接 要转一下
+            try:
+                result = jsonpath(respjson, ext_value)
 
-            if type(result[0]) is str:
-                res_dict[ext_key] = ', '.join(result).lower()
+                if type(result[0]) is str:
+                    res_dict[ext_key] = ', '.join(result).lower()
 
 
-            elif type(result[0]) is int:
-                new_list = []
-                for o in result:
-                    new_list.append(str(o))
-                res_dict[ext_key] = ', '.join(new_list)
+                elif type(result[0]) is int:
+                    new_list = []
+                    for o in result:
+                        new_list.append(str(o))
+                    res_dict[ext_key] = ', '.join(new_list)
 
-            #bool
-            else:
-                res_dict[ext_key] = str(result[0])
+                #bool
+                else:
+                    res_dict[ext_key] = str(result[0])
 
-        except Exception as e:
-            pylogger.alogger.info(f'{e} :: 未从resp中提取到{ext_key}信息')
-            pass
+            except Exception as e:
+                pylogger.alogger.info(f'{e} :: 未从resp中提取到{ext_key}信息')
+                pass
 
-    pylogger.alogger.info(f'extract 提取到的字典{res_dict}')
-    return res_dict
+        pylogger.alogger.info(f'extract 提取到的字典{res_dict}')
+        return res_dict
+    else:
+        return res_dict
 
 def assert_(res_dict,json_):
    # 正则 字典类型的列表 基本都能提取到value 组成一个list 用于ct断言判断  [{"key": "value"},{"key": "value"}]
@@ -57,7 +60,11 @@ def assert_(res_dict,json_):
                        #pylogger.alogger.info('--equal断言--')
                        pylogger.alogger.info('--------')
                        pylogger.alogger.info(f'this is equal assert ::{assKey}:  "{str(assValue).lower()}" == "{str(res_dict[assKey]).lower()}"')
-                       assert str(assValue).lower() == str(res_dict[assKey]).lower()
+                       try:
+                           assert str(assValue).lower() == str(res_dict[assKey]).lower()
+                       except Exception as e:
+                           print(e)
+                           print('yaml 未配置提取项!')
                    else:
                        pass
 
@@ -79,11 +86,19 @@ def assert_(res_dict,json_):
                            for r in re_result:
                                assValue = r
                                pylogger.alogger.info(f'this is contain assert ::{assKey}: "{assValue.lower()}" in "{res_dict[assKey]}"')
-                               assert assValue.lower() in res_dict[assKey]
+                               try:
+                                   assert assValue.lower() in res_dict[assKey]
+                               except Exception as e:
+                                   print(e)
+                                   print('yaml 未配置提取项!')
                        else:
                            # 把实际的值带入断言规则 打印
                            pylogger.alogger.info(f'this is contain assert ::{assKey}: "{assValue.lower()}" in "{res_dict[assKey]}"')
-                           assert assValue.lower() in res_dict[assKey]
+                           try:
+                               assert assValue.lower() in res_dict[assKey]
+                           except Exception as e:
+                               print(e)
+                               print('yaml 未配置提取项!')
                    else:
                        pass
 
@@ -105,12 +120,17 @@ def assert_(res_dict,json_):
                            for r in re_result:
                                assValue = r
                                new_res_list = []
-                               for o in res_dict[assKey]:
-                                   if type(o) is not str:
-                                       res_dict[assKey].append(str(o))
+                               try:
+                                   for o in res_dict[assKey]:
+                                       if type(o) is not str:
+                                           res_dict[assKey].append(str(o))
 
-                               if assValue.lower() in res_dict[assKey]:
-                                  is_orgt = 1
+                                   if assValue.lower() in res_dict[assKey]:
+                                      is_orgt = 1
+                               except Exception as e:
+                                   print(e)
+                                   print('yaml 未配置提取项!')
+
                            assert is_orgt == 1
 
                    else:

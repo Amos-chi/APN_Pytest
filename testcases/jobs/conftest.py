@@ -6,7 +6,7 @@ import pytest
 from common.logger_util import pylogger
 
 
-module = 'company'
+module = 'jobs'
 
 @pytest.fixture(scope='package', autouse=True)
 def set_log():

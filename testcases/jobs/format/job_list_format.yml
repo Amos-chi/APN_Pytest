@@ -1,0 +1,37 @@
+-
+  feature: $csv{feature}
+  story: $csv{story}
+  title: $csv{title}
+
+  requests:
+    method: $csv{method}
+    url: $csv{url}
+    data:
+      search:
+        -
+          relation: AND
+          condition: [ ]
+      module: JOB
+      timezone: Asia/Shanghai
+      filter:
+        -
+          relation: AND
+          condition:
+            -
+              key: jobType
+              value:
+                data:
+                  -
+                    FULL_TIME,CONTRACT
+                relation: OR
+    params:
+      page: 1
+      size: 100
+      sort: postingTime,desc
+
+  extract:
+
+
+  validate:
+    - ct:
+        companyName:

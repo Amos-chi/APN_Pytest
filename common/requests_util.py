@@ -31,7 +31,7 @@ class RequestsUtil():
         return resp
 
 
-    def normal_apis(self,param):
+    def normal_apis(self,param,base_url):
         '''
         常规格式的接口 都可以用这个方法来完成 传参, 请求, 提取extract, 断言
         除了要上传文件的接口 都算常规接口
@@ -40,7 +40,7 @@ class RequestsUtil():
         '''
         # 显示测试模块 - 用例 - 测试项
         pylogger.alogger.info(f" ---> 测试用例: {param['feature']}. {param['story']}. {param['title']}")
-        url = param['requests']['url']
+        url = base_url + param['requests']['url']
         data = param['requests']['data']
         headers = {'Authorization': get_Auth('Authorization')}
         method = param['requests']['method']

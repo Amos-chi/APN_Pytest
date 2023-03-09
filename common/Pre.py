@@ -15,7 +15,6 @@ proxies = {
 }
 
 def pre(module):
-    print('运行了1次+++++++++++++++++++++++++++++++++++++++++++++++++++')
     dir = fr'csvdata/{module}'
     files = os.listdir(dir)
     data_dict_dict = {}

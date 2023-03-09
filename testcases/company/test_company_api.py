@@ -23,8 +23,8 @@ class TestCompany():
     @pytest.mark.company
     @pytest.mark.test
     @pytest.mark.parametrize('param',prepare()['company_list'])
-    def test_clientlist(self,param):
-        RequestsUtil().normal_apis(param)
+    def test_clientlist(self,param,base_url):
+        RequestsUtil().normal_apis(param,base_url)
 
 
     '''
@@ -33,7 +33,6 @@ class TestCompany():
     @pytest.mark.company
     def test_noContract_Clients1(self,base_url):
         url = f'{base_url}/company/api/v3/company/noContracts'
-        print(url)
         headers = {'Authorization': get_Auth('Authorization')}
         resp = RequestsUtil().request('get', url=url, headers=headers, proxies=proxies)
         pylogger.alogger.info(f'Num of No Contract CLients: {len(resp.json())}')
