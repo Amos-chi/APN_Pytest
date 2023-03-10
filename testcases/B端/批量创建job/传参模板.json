@@ -1,0 +1,34 @@
+{
+    "thirdPartyLink": "",
+    "department": "",
+    "experienceYearRange": {
+        "gte": 0
+    },
+    "publicDesc": "<pre style=\"white-space: break-spaces;\">&nbsp;</pre>",
+    "jobFunctions": [
+        {
+            "enumId": 386
+        }
+    ],
+    "jobPlateFormId": null,
+    "jobPlateFormJobId": null,
+    "minimumDegreeLevel": null,
+    "locations": [
+        {
+            "city": "Belcamp",
+            "country": "United States",
+            "location": "",
+            "province": "Maryland"
+        }
+    ],
+    "requiredSkills": [
+        {
+            "skillName": "java"
+        }
+    ],
+    "status": "OPEN",
+    "title": "atest bulk00",
+    "type": "FULL_TIME",
+    "sponsorWorkAuths": null,
+    "uuid": null
+}

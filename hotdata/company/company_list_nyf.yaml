@@ -23,6 +23,7 @@
     companyName: $.name
     accountManagers : $.accountManager..fullName
     companyClientLevelType: $.companyClientLevelType
+    serviceTypes: $.companyServiceTypes..id
     active: $.active
     industry: $.industry
     countries: $.country
@@ -68,6 +69,7 @@
     companyName: $.name
     accountManagers : $.accountManager..fullName
     companyClientLevelType: $.companyClientLevelType
+    serviceTypes: $.companyServiceTypes..id
     active: $.active
     industry: $.industry
     countries: $.country
@@ -113,6 +115,7 @@
     companyName: $.name
     accountManagers : $.accountManager..fullName
     companyClientLevelType: $.companyClientLevelType
+    serviceTypes: $.companyServiceTypes..id
     active: $.active
     industry: $.industry
     countries: $.country
@@ -158,6 +161,7 @@
     companyName: $.name
     accountManagers : $.accountManager..fullName
     companyClientLevelType: $.companyClientLevelType
+    serviceTypes: $.companyServiceTypes..id
     active: $.active
     industry: $.industry
     countries: $.country

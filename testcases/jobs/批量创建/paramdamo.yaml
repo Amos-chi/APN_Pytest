@@ -1,0 +1,41 @@
+-
+  billRange: null
+  clientContactCategory: HIRING_MANAGER
+  clientContactName:
+    id: '3990'
+    name: Cassie Wang
+  code: ''
+  company:
+    id: '2101'
+    industry: AUTOMOTIVE
+    name: atest company01 1am 0307
+  currency: 0
+  department: ''
+  endDate: ''
+  experienceYearRange: null
+  jdText: ''
+  jdUrl: null
+  jobFunctions:
+  - enumId: '194'
+  jobType: PAY_ROLL
+  locations:
+  - addressLine: null
+    city: null
+    country: United States
+    location: null
+    province: California
+  maxSubmissions: 0
+  minimumDegreeLevel: null
+  openings: '5'
+  payType: YEARLY
+  preferredDegrees: null
+  preferredLanguages: null
+  preferredSkills: null
+  publicDesc: null
+  requiredLanguages: null
+  requiredSkills:
+  - skillName: java
+  salaryRange: null
+  startDate: ''
+  title: atest job01 Contract 0309
+  uuid: null

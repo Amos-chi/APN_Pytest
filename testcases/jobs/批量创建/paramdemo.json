@@ -1,0 +1,55 @@
+{
+    "company": {
+        "id": "2101",
+        "name": "atest company01 1am 0307",
+        "industry": "AUTOMOTIVE"
+    },
+    "department": "",
+    "jobType": "CONTRACT",
+    "title": "atest job01 Contract 0309",
+    "startDate": "",
+    "endDate": "",
+    "jdText": "",
+    "publicDesc": null,
+    "jdUrl": null,
+    "clientContactCategory": "HIRING_MANAGER",
+    "clientContactName": {
+        "id": "3990",
+        "name": "Cassie Wang"
+    },
+    "locations": [
+        {
+            "addressLine": null,
+            "city": null,
+            "country": "United States",
+            "province": "California",
+            "location": null
+        }
+    ],
+    "jobFunctions": [
+        {
+            "enumId": "194"
+        }
+    ],
+    "requiredSkills": [
+        {
+            "skillName": "java"
+        }
+    ],
+    "requiredLanguages": null,
+    "preferredLanguages": null,
+    "preferredSkills": null,
+    "salaryRange": null,
+    "billRange": null,
+    "payType": "YEARLY",
+    "currency": 0,
+    "openings": "5",
+    "minimumDegreeLevel": null,
+    "preferredDegrees": null,
+    "experienceYearRange": null,
+    "code": "",
+    "uuid": null,
+    "maxSubmissions": 0
+}
+
+

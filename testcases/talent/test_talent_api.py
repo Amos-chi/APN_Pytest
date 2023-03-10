@@ -20,8 +20,8 @@ class TestTalent():
     @pytest.mark.talent
     @pytest.mark.parametrize('param',prepare()['talnet_moduleTest'])
     def test_talnet_moduleTest(self,param,base_url):
-        #RequestsUtil().normal_apis(param,base_url)
-        print('test_talnet_moduleTest running')
+        RequestsUtil().normal_apis(param,base_url)
+
 
 
 
