@@ -49,6 +49,7 @@ class RequestsUtil():
         except:
             params = None
         resp = RequestsUtil().request(method=method, url=url, json=data, params = params ,headers=headers, proxies=proxies)
+        pylogger.alogger.info(resp.json())
         if resp.status_code in [200, 201]:
             if type(resp.json()) is list:
                 pylogger.alogger.info(f'{len(resp.json())} results: ')

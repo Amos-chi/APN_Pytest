@@ -17,7 +17,7 @@
   jdUrl: null
   jobFunctions:
   - enumId: '194'
-  jobType: PAY_ROLL
+  jobType: CONTRACT
   locations:
   - addressLine: null
     city: null

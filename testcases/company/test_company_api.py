@@ -21,7 +21,6 @@ class TestCompany():
         获取company列表
     '''
     @pytest.mark.company
-    @pytest.mark.test
     @pytest.mark.parametrize('param',prepare()['company_list'])
     def test_clientlist(self,param,base_url):
         RequestsUtil().normal_apis(param,base_url)

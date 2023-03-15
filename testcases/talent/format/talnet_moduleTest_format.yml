@@ -31,8 +31,8 @@
 
 
   extract:
-    firstName: $.firstName
+    lastName: $.lastName
 
   validate:
     - eq:
-        firstName: $csv{firstName}
+        lastName: $csv{lastName}

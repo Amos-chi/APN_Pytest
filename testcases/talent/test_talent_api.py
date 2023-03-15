@@ -18,9 +18,11 @@ class TestTalent():
         创建候选人接口
     '''
     @pytest.mark.talent
+    @pytest.mark.runn
     @pytest.mark.parametrize('param',prepare()['talnet_moduleTest'])
     def test_talnet_moduleTest(self,param,base_url):
         RequestsUtil().normal_apis(param,base_url)
+
 
 
 

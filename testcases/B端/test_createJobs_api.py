@@ -12,6 +12,10 @@ proxies = {
 
 class TestBclient():
 
+    '''
+        B端创建jobs
+    '''
+
     @pytest.mark.Bclient
     @pytest.mark.parametrize('param', readaslist())
     def test_createJobs(self,param):

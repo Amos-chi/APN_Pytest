@@ -68,7 +68,6 @@ def readaslist():
     for f in files:
         data = read_yamlfile(fr'\testcases\B端\批量创建job\yamlfiles\{f}')
         list_.append(data)
-    print(list_)
     return list_
 
 

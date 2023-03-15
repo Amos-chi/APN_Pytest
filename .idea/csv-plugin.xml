@@ -31,13 +31,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\csvdata\jobs\create_jobs.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\csvdata\jobs\job_list.csv">
           <value>
             <Attribute>
@@ -53,13 +46,6 @@
           </value>
         </entry>
         <entry key="\csvdata\talent\talnet_moduleTest.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\csvdata\talent\talnet_moduleTest1.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

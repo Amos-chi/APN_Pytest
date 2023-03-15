@@ -29,20 +29,24 @@ class TestJobs():
     '''
         大量创建job
         用模板先批量生成了yaml传参文件, 读成一个list传到parametrize
+        生成模板文件时 会用今天的日期作为文件夹名, 调用readaslist()方法时, 需要传一个今天的日期
+         a. : 准备数据
+         b. : 修改readaslist()方法中的日期
     '''
-    # @pytest.mark.parametrize('param', readaslist())
-    # def test_create_jobs(self,param):
-    #     url = 'https://api-staging.hitalentech.com:8888/job/api/v3/jobs'
-    #     data = param
-    #     headers = {'Authorization': get_Auth('Authorization')}
-    #     method = 'post'
-    #     try:
-    #         params = param['requests']['params']
-    #     except:
-    #         params = None
-    #     resp = RequestsUtil().request(method=method, url=url, json=data, params=params, headers=headers,
-    #                                   proxies=proxies)
-    #     print(resp.status_code)
-    #     print(resp.json())
+    @pytest.mark.runn
+    @pytest.mark.parametrize('param', readaslist('2023-03-15'))
+    def test_create_jobs(self,param):
+        url = 'https://api-staging.hitalentech.com:8888/job/api/v3/jobs'
+        data = param
+        headers = {'Authorization': get_Auth('Authorization')}
+        method = 'post'
+        try:
+            params = param['requests']['params']
+        except:
+            params = None
+        resp = RequestsUtil().request(method=method, url=url, json=data, params=params, headers=headers,
+                                      proxies=proxies)
+        pylogger.alogger.info(resp.json())
+
 
 

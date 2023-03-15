@@ -39,7 +39,13 @@ def changeparam():
         if r1 := reg_str.search(line[7]):
             replacenum = int(r1.group(1)) + n
             line[7] = [{"type":"PHONE","contact":f"{replacenum}","sort":1},{"type":"EMAIL","contact":f"{replacenum}@163.com","sort":2},{"type":"WECHAT","contact":f"{replacenum}","details":None,"sort":3}]
-            n += 1
+
+
+        lastname_reg_str = re.compile("bulk(\d){0,4}")
+        r2 = lastname_reg_str.search(line[6])
+        number = int(r2.group(1))
+        replace_lastName = f'bulk{number + n-1}'
+        line[6] = replace_lastName
 
         replace_currency = random.choice(currrency)
         line[9] = replace_currency
@@ -54,7 +60,7 @@ def changeparam():
         line[13] = [{"enumId": f"{replace_lang}"}]
 
         writer.writerow(line)
-
+        n += 1
 
 
 def getindustry():

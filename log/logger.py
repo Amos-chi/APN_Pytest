@@ -9,7 +9,7 @@ import time
 
 
 date_ = datetime.datetime.now().strftime('%Y-%m-%d')
-date_dir = 'log' + '/' + date_
+date_dir = f'{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}\\log' + '\\' + date_
 
 
 TIME_FORMAT = "%Y-%m-%dT%XZ%Z"  # year_month_day_time_weekdayinnumber_timezone
