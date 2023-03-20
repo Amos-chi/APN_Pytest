@@ -23,8 +23,12 @@ languages = ['40', '41', '57', '42', '43', '44', '45', '46', '48', '49', '50', '
 currrency = [0,1,2,3,4]
 
 def 循环生成yaml(n):
+    date_ = datetime.datetime.now().strftime('%Y-%m-%d')
+    date_dir = f'../testcases/talent/批量创建/yamlfiles_time/循环四小时/{date_}'
+    if not os.path.exists(date_dir):
+        os.makedirs(date_dir)
 
-    f = open(r'E:\Program Files (x86)\PyCharm\Amos-chi\APN_Pytest\hotdata\talent\talnet_moduleTest_nyf.yaml','r',encoding='utf-8')
+    f = open(r'/hotdata/talent/talnet_moduleTest_nyf.yaml', 'r', encoding='utf-8')
     yd = yaml.load(stream=f, Loader=yaml.FullLoader)
     data = yd[0]['requests']['data']
     reg_str = re.compile("'type': 'PHONE', 'contact': '(\d*)'")
@@ -46,9 +50,8 @@ def 循环生成yaml(n):
     data['languages'] = [{'enumId': random.choice(languages)}]
     data['currrency'] = random.choice(currrency)
 
-    ff = open(f'../testcases/talent/批量创建/yamlfiles_time/循环四小时/{data["firstName"]}{data["lastName"]}.json','w',encoding='utf-8')
+    ff = open(f'{date_dir}/{data["firstName"]}{data["lastName"]}.json','w',encoding='utf-8')
     ff.write(json.dumps(data,indent=4, ensure_ascii=False))
-    print(json.dumps(data,indent=4,ensure_ascii=False))
     return data
 
 def test_create_talents(param):
@@ -62,12 +65,25 @@ def test_create_talents(param):
         params = None
     resp = RequestsUtil().request(method=method, url=url, json=data, params=params, headers=headers,
                                   proxies=proxies)
-    pylogger.alogger.info(resp.json())
+    pylogger.alogger.info(f'{param["lastName"]} : {str(resp.json())}')
+    if resp.status_code in [201,412]:
+        return 1
 
 if __name__ == '__main__':
-    n = 1
+    '''
+        修改n 修改模板中的联系方式 firstName
+        直接运行
+    '''
+    n = 3
     while datetime.datetime.strptime(datetime.datetime.now().strftime('%Y-%m-%d  %H:%M:%S'),'%Y-%m-%d  %H:%M:%S') \
-            < datetime.datetime.strptime("2023-03-15T14:40:00Z", '%Y-%m-%dT%H:%M:%SZ'):
-        test_create_talents(循环生成yaml(n))
-        n += 1
+            < datetime.datetime.strptime("2023-03-17T14:00:00Z", '%Y-%m-%dT%H:%M:%SZ'):
+        data = 循环生成yaml(n)
+        try:
+            num = test_create_talents(data)
+            if num == 1:
+                n += 1
+            else:
+                pass
+        except Exception as e:
+            print(e)
 

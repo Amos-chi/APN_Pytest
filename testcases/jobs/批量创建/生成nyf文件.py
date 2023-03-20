@@ -26,9 +26,9 @@ def 批量生成yaml():
         types = ['PAY_ROLL', 'FULL_TIME', 'CONTRACT']
         type = random.choice(types)
         if i < 9:
-            new_title = f'atest job0{i+1} {type} 0315'
+            new_title = f'atest job0{i+1} {type} 0317'
         else:
-            new_title = f'atest job{i+1} {type} 0315'
+            new_title = f'atest job{i+1} {type} 0317'
         data['title'] = new_title
         data['jobType'] = type
         ff = open(fr'{date_dir}/{new_title}.yaml','w',encoding='utf-8')
