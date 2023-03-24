@@ -35,17 +35,16 @@ def parserResult(resumePath: str,file: str):
         fileName = os.path.join(resumePath,file)
         uuid = getuuid.get_uuid(fileName)
         urlquote = quote(file)
-        pylogger().alogger.info(f'upload and parse {file} ..')
+        pylogger().alogger.info(f'upload and parse :: {file} :: {uuid} ..')
 
         header = {'Authorization': get_Auth('Authorization')}
-        #msword
+
         #STEP1
         url_step1 = 'https://api-staging.hitalentech.com:8888/parser/api/v3/parsers/resume/status'
         type_enum = {
             '.pdf' : 'pdf',
             '.doc' : 'msword',
             '.docx' : 'vnd.openxmlformats-officedocument.wordprocessingml.document'
-
         }
         file_type = os.path.splitext(file)[1]
         data_step1 = {
@@ -60,7 +59,7 @@ def parserResult(resumePath: str,file: str):
 
                 # redis中已有简历存在的情况, 不需要进Step3_wait_finished, 等待parser结束拿结果就行
                 if resp1.json()['status'] == 'STARTED':
-                    pylogger().alogger.info('waiting parser ..')
+                    pylogger().alogger.info('STARTED : waiting parser ..')
                     continue
 
                 elif resp1.json()['status'] == 'NONE':

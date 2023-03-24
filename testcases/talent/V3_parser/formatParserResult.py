@@ -34,7 +34,7 @@ def createbyresume(resumePath,file, date_dir):
     if file.startswith('~$') :
         pass
     elif f'{file}.json' in exjsons:
-        pylogger.alogger.info(f'{file}已经解析过.')
+        pylogger.alogger.info(f'{file} : 已存在json文件 .')
     else:
         while True:
             try:
