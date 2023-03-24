@@ -13,11 +13,11 @@ proxies = {
 class TestBclient():
 
     '''
-        B端创建jobs
+        B端创建jobs, 为了避免资源占用把传参方法注释了, 用时打开
     '''
 
     @pytest.mark.Bclient
-    @pytest.mark.parametrize('param', readaslist())
+    #@pytest.mark.parametrize('param', readaslist())
     def test_createJobs(self,param):
         url = 'https://api-staging.hitalentech.com:8443/apnpublic/api/v1/biz/jobs/'
         data = param

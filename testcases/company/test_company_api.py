@@ -30,6 +30,7 @@ class TestCompany():
         获取没合同的公司
     '''
     @pytest.mark.company
+    @pytest.mark.testaaa
     def test_noContract_Clients1(self,base_url):
         url = f'{base_url}/company/api/v3/company/noContracts'
         headers = {'Authorization': get_Auth('Authorization')}

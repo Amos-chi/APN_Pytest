@@ -32,9 +32,11 @@ class TestJobs():
         生成模板文件时 会用今天的日期作为文件夹名, 调用readaslist()方法时, 需要传一个今天的日期
          a. : 准备数据
          b. : 修改readaslist()方法中的日期
+         
+         c. : 为了避免每次启动都准备100个job传参, 注释掉了传参夹具, 使用时打开
     '''
     @pytest.mark.runn
-    @pytest.mark.parametrize('param', readaslist('2023-03-15'))
+    #@pytest.mark.parametrize('param', readaslist('2023-03-15'))
     def test_create_jobs(self,param):
         url = 'https://api-staging.hitalentech.com:8888/job/api/v3/jobs'
         data = param

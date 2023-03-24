@@ -1,3 +1,5 @@
+import os
+
 import pytest
 
 from common.Pre import pre
@@ -12,3 +14,11 @@ def set_log():
 def prepare():
     data_dict = pre(module)
     return data_dict
+
+def pre_createbyresume():
+    list_ = []
+    resumePath = r'E:\Parser_Test\resume_files'
+    files = os.listdir(resumePath)
+    for file in files:
+        list_.append((resumePath,file))
+    return list_

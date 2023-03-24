@@ -63,7 +63,7 @@ if __name__ == '__main__':
     '''
         修改i 直接运行
     '''
-    i = 4
+    i = 1
     while datetime.datetime.strptime(datetime.datetime.now().strftime('%Y-%m-%d  %H:%M:%S'),'%Y-%m-%d  %H:%M:%S') \
             < datetime.datetime.strptime("2023-03-17T14:00:00Z", '%Y-%m-%dT%H:%M:%SZ'):
         data = test_getdata(i)
