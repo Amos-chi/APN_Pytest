@@ -23,7 +23,7 @@ def test_getdata(i):
     if not os.path.exists(date_dir):
         os.makedirs(date_dir)
 
-    f = open('../testcases/jobs/批量创建/paramdamo.yaml', 'r', encoding='utf-8')
+    f = open('paramdamo.yaml', 'r', encoding='utf-8')
     fdata = yaml.load(stream=f,Loader=yaml.FullLoader)
 
     time1 = datetime.datetime.now().strftime('%Y-%m-%d  %H.%M.%S')
@@ -35,8 +35,8 @@ def test_getdata(i):
     data['jobType'] = type
 
     #留记录
-    ff = open(fr'{date_dir}/{new_title}.yaml','w',encoding='utf-8')
-    yaml.dump(data,stream=ff)
+    # ff = open(fr'{date_dir}/{new_title}.yaml','w',encoding='utf-8')
+    # yaml.dump(data,stream=ff)
     return data
 
 def test_create_jobs(param):

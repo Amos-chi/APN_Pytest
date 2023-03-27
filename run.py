@@ -9,6 +9,6 @@ import pytest
 
 if __name__ == '__main__':
 
-    pytest.main(["-m createByResumes"])  # -m test
+    pytest.main(["-m runn"])  # -m test
     # time.sleep(3)
     # os.system('allure generate ./temps -o Allure_reports --clean') # -o output到reports目录

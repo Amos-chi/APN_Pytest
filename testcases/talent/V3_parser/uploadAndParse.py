@@ -1,15 +1,11 @@
-import datetime
 import json
 import os
-import requests
+import mimetypes
 from requests_toolbelt import MultipartEncoder
 
 
 
 from urllib.parse import quote
-
-
-
 from common.logger_util import pylogger
 from common.requests_util import RequestsUtil
 from common.yaml_util import get_Auth
@@ -41,18 +37,16 @@ def parserResult(resumePath: str,file: str):
 
         #STEP1
         url_step1 = 'https://api-staging.hitalentech.com:8888/parser/api/v3/parsers/resume/status'
-        type_enum = {
-            '.pdf' : 'pdf',
-            '.doc' : 'msword',
-            '.docx' : 'vnd.openxmlformats-officedocument.wordprocessingml.document'
-        }
-        file_type = os.path.splitext(file)[1]
+
+        mimetype = mimetypes.guess_type(fileName)[0]
         data_step1 = {
             'uuid': uuid,
             'priority': '0',
             'fileName': urlquote,
-            'contentType': f'application/{type_enum[file_type]}'
+            'contentType': mimetype
         }
+
+        i = 0
         while True:
             resp1 = RequestsUtil().request('get',url_step1, params= data_step1, headers = header ,proxies=proxies)
             if resp1.status_code == 200:
@@ -60,7 +54,12 @@ def parserResult(resumePath: str,file: str):
                 # redis中已有简历存在的情况, 不需要进Step3_wait_finished, 等待parser结束拿结果就行
                 if resp1.json()['status'] == 'STARTED':
                     pylogger().alogger.info('STARTED : waiting parser ..')
-                    continue
+                    if i < 15:
+                        i += 1
+                        continue
+                    else:
+                        pylogger().alogger.info('err: 解析超时 ..')
+                        break
 
                 elif resp1.json()['status'] == 'NONE':
                     postPolicy = resp1.json()['postPolicy']
@@ -71,7 +70,7 @@ def parserResult(resumePath: str,file: str):
                     url_step2 = postPolicy['url']
                     name = resp1.json()['fileName']
                     data_step2 = MultipartEncoder({
-                        'Content-Type' : f'application/{type_enum[file_type]}',
+                        'Content-Type' : mimetype,
                         'Content-Disposition': f'filename="{name}"',
                         'x-amz-date': postPolicy['x-amz-date'],
                         'x-amz-signature': postPolicy['x-amz-signature'],
@@ -111,6 +110,7 @@ def parserResult(resumePath: str,file: str):
             else:
                 assert resp1.status_code == 200
                 break
+
 
 
 if __name__ == '__main__':

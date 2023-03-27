@@ -13,11 +13,12 @@ from common.requests_util import RequestsUtil
 from testcases.B端.批量创建job.enums import jf, skills, type_
 
 proxies = {
-        'http': 'http://127.0.0.1:4780',
-        'https': 'http://127.0.0.1:4780'
-    }
+    'http': 'http://127.0.0.1:4780',
+    'https': 'http://127.0.0.1:4780'
+}
 
-#登录方法
+
+# 登录方法
 def login():
     url = 'https://api-staging.hitalentech.com:8443/apnpublic/api/v1/biz/users/login'
     data = {
@@ -28,14 +29,14 @@ def login():
     token = resp.json()['credential']['access_token']
     Authorization = 'Bearer ' + token
 
-    f = open('../testcases/B端/Authorization.yaml', 'w', encoding='utf-8')
-    yaml.dump({'Authorization': Authorization},stream=f,allow_unicode=True)
+    f = open('../Authorization.yaml', 'w', encoding='utf-8')
+    yaml.dump({'Authorization': Authorization}, stream=f, allow_unicode=True)
+
 
 def get_token():
-    f = open('../testcases/B端/Authorization.yaml', 'r', encoding='utf-8')
+    f = open('../Authorization.yaml', 'r', encoding='utf-8')
     token = yaml.load(stream=f, Loader=yaml.FullLoader)
     return token
-
 
 
 def test_create_nyfs(i):
@@ -44,7 +45,7 @@ def test_create_nyfs(i):
     if not os.path.exists(date_dir):
         os.makedirs(date_dir)
 
-    f = open('../testcases/B端/批量创建job/传参模板.json', 'r', encoding='utf-8')
+    f = open('传参模板.json', 'r', encoding='utf-8')
     data = json.load(f)
     newtitle = f'atest0317 测试es同步 bulk{i}'
     data['title'] = newtitle
@@ -52,10 +53,11 @@ def test_create_nyfs(i):
     data['requiredSkills'][0]['skillName'] = random.choice(skills)
     data['type'] = random.choice(type_)
 
-    #留记录
-    ff = open(fr'{date_dir}\\{newtitle}.yaml','w',encoding='utf-8')
-    yaml.dump(data,stream=ff)
+    # 留记录
+    # ff = open(fr'{date_dir}\\{newtitle}.yaml','w',encoding='utf-8')
+    # yaml.dump(data,stream=ff)
     return data
+
 
 def test_create_jobs(param):
     url = 'https://api-staging.hitalentech.com:8443/apnpublic/api/v1/biz/jobs/'
@@ -77,13 +79,12 @@ def test_create_jobs(param):
         return 1
 
 
-
 if __name__ == '__main__':
     '''
-        
+
     '''
     i = 1
-    while datetime.datetime.strptime(datetime.datetime.now().strftime('%Y-%m-%d  %H:%M:%S'),'%Y-%m-%d  %H:%M:%S') \
+    while datetime.datetime.strptime(datetime.datetime.now().strftime('%Y-%m-%d  %H:%M:%S'), '%Y-%m-%d  %H:%M:%S') \
             < datetime.datetime.strptime("2023-03-17T14:00:00Z", '%Y-%m-%dT%H:%M:%SZ'):
         data = test_create_nyfs(i)
 
@@ -97,5 +98,5 @@ if __name__ == '__main__':
         except Exception as e:
             print(e)
 
-    #print(os.path.dirname(os.path.abspath(__file__)))
+    # print(os.path.dirname(os.path.abspath(__file__)))
 

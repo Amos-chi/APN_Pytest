@@ -32,6 +32,7 @@ class TestTalent():
     '''
 
     @pytest.mark.createByResumes
+    @pytest.mark.talent
     @pytest.mark.parametrize('pairs', pre_createbyresume())
     def test_createByResumes(self, pairs):
         # 以日为单位 创建文件夹存放结果json

@@ -17,6 +17,8 @@ r'''
         parser result to csv
         ssh -i C:\Users\Administrator\Desktop\amos.chi.pem  -L 6389:10.0.0.20:6379 amos.chi@13.251.44.53
         result json文件已经存在于当日文件夹里的简历 会直接跳过 不会再parser
+        
+        准备好简历 直接运行
 '''
 proxies = {
     'http': 'http://127.0.0.1:4780',
@@ -38,13 +40,10 @@ def createbyresume(resumePath,file, date_dir):
     else:
         while True:
             try:
-                data = uploadAndParse.parserResult(resumePath, file)    # 常规parser简历测试用
-                #import 临时parser
-                #data = 临时parser.getParserdata(resumePath, file)       # 简历已存在时 临时跑国浩的服务用
-                #data = json.loads(data)
 
+                data = uploadAndParse.parserResult(resumePath, file)
 
-            # 将语言栏的数字转换成中文
+                # 将语言栏的数字转换成中文
                 languagelist = []
                 if data.get('languages'):
                     for l in data['languages']:
@@ -69,17 +68,14 @@ def createbyresume(resumePath,file, date_dir):
                 newData = {}
 
                 #name
-                if data.get('firstName') and data.get('lastName'):
+                if data.get('firstName'):
                     newData['firstName'] = data['firstName']
-                    newData['lastName'] = data['lastName']
-                elif data.get('firstName'):
-                    newData['firstName'] = data['firstName']
-                    newData['lastName'] = ''
-                elif data.get('lastName'):
-                    newData['firstName'] = ''
-                    newData['lastName'] = data['lastName']
                 else:
                     newData['firstName'] = ''
+
+                if data.get('lastName'):
+                    newData['lastName'] = data['lastName']
+                else:
                     newData['lastName'] = ''
 
                 #keys
@@ -151,7 +147,7 @@ def createbyresume(resumePath,file, date_dir):
 
                 break
 
-            except AttributeError as e:
+            except AttributeError:
                 pylogger.alogger.info(file + ':' + data + '\n')
                 break
 
