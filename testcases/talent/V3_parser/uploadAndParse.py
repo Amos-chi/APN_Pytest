@@ -54,7 +54,7 @@ def parserResult(resumePath: str,file: str):
                 # redis中已有简历存在的情况, 不需要进Step3_wait_finished, 等待parser结束拿结果就行
                 if resp1.json()['status'] == 'STARTED':
                     pylogger().alogger.info('STARTED : waiting parser ..')
-                    if i < 15:
+                    if i < 50:
                         i += 1
                         continue
                     else:

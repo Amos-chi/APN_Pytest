@@ -31,7 +31,7 @@ class TestTalent():
         批量上传简历创建候选人
     '''
 
-    @pytest.mark.createByResumes
+
     @pytest.mark.talent
     @pytest.mark.parametrize('pairs', pre_createbyresume())
     def test_createByResumes(self, pairs):
