@@ -45,13 +45,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\单独任务\page大于10.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
       </map>
     </option>
   </component>
