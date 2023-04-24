@@ -16,7 +16,7 @@ class GetAuthorization:
         url= 'https://api-staging.hitalentech.com:8888/user/api/v3/login'
         data = {
             'username' : 'amos.chi',
-            'password' : 'a123456'
+            'password' : 'yMfjjE2D691LeKtKJLQhWQ=='
         }
         #resp = requests.post(url=url, json=data, proxies=GetAuthorization.proxies)
         resp = RequestsUtil().request(method='post', url=url, json=data, proxies=GetAuthorization.proxies)

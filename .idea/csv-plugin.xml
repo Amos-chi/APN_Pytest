@@ -45,6 +45,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\单独任务\数据库\mysql_select_result.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
