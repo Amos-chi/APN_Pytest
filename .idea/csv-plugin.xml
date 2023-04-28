@@ -45,6 +45,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\testcases\jobdiva_data_migration\字段对照.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>

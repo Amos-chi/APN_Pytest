@@ -20,7 +20,7 @@ proxies = {
 
 
 list = ['20','24','2067']
-class TestJobdiva():
+class TestJobdiva_selenium():
 
     # chrome.exe --remote-debugging-port=9222 --user-data-dir="C:\Chromedriver\chromeprofile"
     driver = webdriver.Chrome(options=chrome_options)
@@ -33,6 +33,9 @@ class TestJobdiva():
     def safe_sendkeys(self, method='xpath', phrase='', value=''):
         WebDriverWait(self.driver, 8, 0.5).until(lambda x: self.driver.find_element(method, phrase))
         self.driver.find_element(method, phrase).send_keys(value)
+
+    def safe_wait(self, method='xpath', phrase=''):
+        WebDriverWait(self.driver, 8, 0.5).until(lambda x: self.driver.find_element(method, phrase))
 
 
     @pytest.mark.jobdiva_data_migration
@@ -208,5 +211,5 @@ class TestJobdiva():
 if __name__ == '__main__':
 
     for l in list:
-        TestJobdiva().test_find_by_companyID(l)
+        TestJobdiva_selenium().test_find_by_companyID(l)
 
